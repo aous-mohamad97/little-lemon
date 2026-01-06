@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import recipes from "../recipes";
+import menuItems from "../recipes";
 import Swal from "sweetalert2";
 
 const SpecialsSection = () => {
@@ -41,7 +41,7 @@ const SpecialsSection = () => {
         </Link>
       </div>
       <div className="cards">
-        {recipes.map((menuItem) => (
+        {menuItems.map((menuItem) => (
           <div key={menuItem.id} className="menu-items">
             <img src={menuItem.image} alt={menuItem.title} />
             <div className="menu-content">
