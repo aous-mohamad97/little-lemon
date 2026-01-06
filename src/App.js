@@ -1,20 +1,18 @@
 import React from 'react';
 import './App.css';
-import Nav from "./components/Nav"
-import Main from "./components/Main"
-import Menu from './components/Menu';
-import Footer from './components/Footer';
+import NavigationBar from "./components/Nav"
+import PageContent from "./components/Main"
+import SpecialsSection from './components/Menu';
+import SiteFooter from './components/Footer';
 
-
-function App() {
+const App = () => {
   return (
- 
-    <>
-      <Nav/>
-      <Main />
-      <Menu/>
-      <Footer/>
-    </>
+    <div className="app-wrapper">
+      <NavigationBar />
+      <PageContent />
+      <SpecialsSection />
+      <SiteFooter />
+    </div>
   );
 }
 

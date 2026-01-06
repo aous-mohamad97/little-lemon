@@ -1,66 +1,84 @@
-import React, { useReducer, useEffect } from "react";
-import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
+import React, { useReducer } from "react";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import Booking from "./Booking";
 import ConfirmedBooking from "./ConfirmedBooking";
 import Header from "./Header";
 
-
-const Main = () => {
-
-    // const [availableTimes, setAvailableTimes] = useState(["17:00", "18:00", "19:00", "20:00", "21:00", "22:00"])
-
-    //Chrome was blocking running the script on the index page so I added it here. "https://chromestatus.com/feature/5629709824032768"
-    const seededRandom = function (seed) {
-        var m = 2**35 - 31;
-        var a = 185852;
-        var s = seed % m;
-        return function () {
-            return (s = s * a % m) / m;
+const PageContent = () => {
+    // Pseudo-random number generator for consistent time slot availability
+    const createTimeSlotGenerator = (seedValue) => {
+        const modulus = 2**35 - 31;
+        const multiplier = 185852;
+        let currentSeed = seedValue % modulus;
+        
+        return () => {
+            currentSeed = (currentSeed * multiplier) % modulus;
+            return currentSeed / modulus;
         };
     }
 
-    const fetchAPI = function(date) {
-        let result = [];
-        let random = seededRandom(date.getDate());
+    const retrieveAvailableTimeSlots = (selectedDate) => {
+        const timeSlots = [];
+        const generator = createTimeSlotGenerator(selectedDate.getDate());
+        const openingHour = 17;
+        const closingHour = 23;
 
-        for(let i = 17; i <= 23; i++) {
-            if(random() < 0.5) {
-                result.push(i + ':00');
+        for(let hour = openingHour; hour <= closingHour; hour++) {
+            if(generator() < 0.5) {
+                timeSlots.push(`${hour}:00`);
             }
-            if(random() < 0.5) {
-                result.push(i + ':30');
+            if(generator() < 0.5) {
+                timeSlots.push(`${hour}:30`);
             }
         }
-        return result;
+        return timeSlots;
     };
-    const submitAPI = function(formData) {
+
+    const processReservationSubmission = (reservationData) => {
+        // In a real application, this would send data to a backend API
         return true;
     };
 
-    const initialState = {availableTimes:  fetchAPI(new Date())}
-    const [state, dispatch] = useReducer(updateTimes, initialState);
+    const initialBookingState = {
+        availableTimeSlots: retrieveAvailableTimeSlots(new Date())
+    };
 
-    function updateTimes(state, date) {
-        return {availableTimes: fetchAPI(new Date(date))}
+    const [bookingState, updateBookingState] = useReducer(
+        bookingTimeSlotReducer, 
+        initialBookingState
+    );
+
+    function bookingTimeSlotReducer(currentState, selectedDate) {
+        return {
+            availableTimeSlots: retrieveAvailableTimeSlots(new Date(selectedDate))
+        };
     }
+
     const navigate = useNavigate();
-    function submitForm (formData) {
-        if (submitAPI(formData)) {
-            navigate("/confirmed")
+    
+    const handleReservationSubmission = (reservationData) => {
+        if (processReservationSubmission(reservationData)) {
+            navigate("/confirmed");
         }
     }
 
     return(
-        <main className="main">
+        <main className="main-content">
             <Routes>
                 <Route path="/" element={<Header />} />
-                <Route path="/booking" element={<Booking availableTimes={state} dispatch={dispatch} submitForm={submitForm}/>} />
-                <Route path="/confirmed" element={<ConfirmedBooking/> } />
+                <Route 
+                    path="/booking" 
+                    element={
+                        <Booking 
+                            availableTimeSlots={bookingState} 
+                            updateTimeSlots={updateBookingState} 
+                            onSubmitReservation={handleReservationSubmission}
+                        />} 
+                />
+                <Route path="/confirmed" element={<ConfirmedBooking />} />
             </Routes>
         </main>
-
-
-    )
+    );
 }
 
-export default Main;
+export default PageContent;

@@ -1,15 +1,14 @@
 import React from "react";
 import BookingForm from "./BookingForm";
-import { useState } from "react";
 
-const Booking = (props) => {
-
-
-
+const Booking = ({ availableTimeSlots, updateTimeSlots, onSubmitReservation }) => {
     return (
-
-        <BookingForm availableTimes={props.availableTimes} dispatch={props.dispatch} submitForm={props.submitForm}/>
-    )
+        <BookingForm 
+            availableTimeSlots={availableTimeSlots} 
+            updateTimeSlots={updateTimeSlots} 
+            onSubmitReservation={onSubmitReservation}
+        />
+    );
 }
 
 export default Booking;

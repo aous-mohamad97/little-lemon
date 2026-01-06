@@ -1,17 +1,23 @@
 
-body{
+.app-wrapper {
+  width: 100%;
+  min-height: 100vh;
+}
+
+body {
   width: 100%;
   margin: 0 auto;
 }
 
-li{
+li {
   list-style: none;
 }
-a{
+
+a {
   text-decoration: none;
 }
 
-nav{
+nav {
   z-index: 10001;
 }
 
@@ -76,10 +82,11 @@ nav ul li a:hover{
   padding: 40px 0;
 }
 
-.header section {
-color: #EDEFEE;
-padding: 10px 13%;
-position: relative;
+.header section,
+.hero-section {
+  color: #EDEFEE;
+  padding: 10px 13%;
+  position: relative;
 }
 
 
@@ -125,20 +132,41 @@ button {
 }
 
 
-form, .comfirm{
+.reservation-form,
+form,
+.comfirm {
   padding: 10px 13%;
 }
 
-.formField{
+.reservation-header {
+  background-color: #495e57;
+  padding: 40px 0;
+}
+
+.reservation-section {
+  color: #EDEFEE;
+  padding: 10px 13%;
+}
+
+.formField {
   padding: 50px 20px;
 }
 
-input, label{
+.form-group {
+  margin-bottom: 20px;
+}
+
+input,
+label {
   display: inline-block;
   margin-right: 20px;
   margin-bottom: 20px;
 }
-#book-date, #book-time, #book-guests, #book-occasion{
+
+#book-date,
+#book-time,
+#book-guests,
+#book-occasion {
   background: #bdbdbd43;
   padding: 8px 24px;
   border: none;
@@ -146,18 +174,33 @@ input, label{
   border-radius: 2px;
 }
 
-.btnReceive input{
+.btnReceive input {
   padding: 12px 16px;
   margin-top: 20px;
   background: #495e57;
   color: #fff;
   border: none;
   border-radius: 4px;
-
+  cursor: pointer;
 }
 
-.comfirm span{
-  color: blue;
+.comfirm {
+  padding: 10px 13%;
+  text-align: center;
+}
+
+.confirmation-message {
+  padding: 40px 20px;
+}
+
+.confirmation-message p {
+  font-size: 18px;
+  margin: 20px 0;
+  color: #333;
+}
+
+.comfirm span {
+  color: #495e57;
 }
 
 
@@ -205,9 +248,20 @@ input, label{
 }
 
 
-.menu-content .heading{
+.menu-content .heading {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+}
+
+.menu-content .price {
+  font-weight: bold;
+  color: #495e57;
+}
+
+.menu-content .description {
+  margin: 10px 0;
+  line-height: 1.5;
 }
 
 .orderbtn{
@@ -217,7 +271,14 @@ input, label{
   font-weight: 600;
 }
 
-footer section{
+.site-footer {
+  background-color: #333;
+  color: #fff;
+  padding: 40px 0;
+}
+
+footer section,
+.footer-content {
   padding: 10px 13%;
   display: flex;
   justify-content: space-between;
@@ -234,16 +295,29 @@ footer section{
   width: 320px;
 }
 
-footer h3{
+footer h3,
+.footer-section h3 {
   font-size: 18px;
+  margin-bottom: 15px;
 }
 
-footer ul{
+footer ul,
+.footer-section ul {
   padding: 0;
 }
 
-footer ul li{
+footer ul li,
+.footer-section ul li {
   padding: 8px 0;
+}
+
+.footer-section a {
+  color: #EDEFEE;
+  transition: color 0.3s ease;
+}
+
+.footer-section a:hover {
+  color: #F4CE14;
 }
 
 
@@ -280,12 +354,16 @@ footer ul li{
     display: none;
   }
 
-  form, .comfirm{
+  .reservation-form,
+  form,
+  .comfirm {
     padding: 10px 8%;
   }
 
-
-  .header section, .menu-container{
+  .header section,
+  .hero-section,
+  .reservation-section,
+  .menu-container {
     padding: 10px 8%;
   }
   .menu-container{
@@ -299,7 +377,8 @@ footer ul li{
     width: 100%;
   }
 
-  footer section{
+  footer section,
+  .footer-content {
     padding: 10px 8%;
     flex-direction: column;
   }
